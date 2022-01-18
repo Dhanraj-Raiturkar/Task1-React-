@@ -12,19 +12,19 @@ function App() {
 
   const [list, setList] = useState(JSON.parse(sessionStorage.getItem("list")) || []);
   const [deletedList, setDeletedList] = useState(JSON.parse(sessionStorage.getItem("deletedList")) || []);
-  const[dispDeletedList, setDispDeletedList] = useState(false);
+  const[dispDeletedList, setDispDeletedList] = useState(true);
 
   const checkListItem = item => {
     list.map((i) => {
       if(i.id === item.id){
         if(i.checked){
           setList((prevList)=> {
-            let newList = [{id:item.id, text:item.text, checked:false}, ...prevList.filter(element => element.id!==item.id)]
+            let newList = [{id:item.id, text:item.text, checked:false, deleted:false}, ...prevList.filter(element => element.id!==item.id)]
             return newList;
           })
         }else if(!i.checked){
           setList((prevList)=> {
-            return prevList.filter(element => element.id!==item.id).concat({id:item.id, text:item.text, checked:true})
+            return prevList.filter(element => element.id!==item.id).concat({id:item.id, text:item.text, checked:true, deleted:false})
           })
         }
       }
@@ -36,14 +36,14 @@ function App() {
       return prevList.filter(element => element.id!==item.id)
     })
     setDeletedList((prevList) => {
-      return prevList.concat(item);
+      return prevList.concat({...item, deleted:true});
     })
   }
 
   const addInput = (input) => {
     console.log(input);
     setList((prev) => {
-      return [...prev, {id:Math.random().toString(), text:input, checked:false}];
+      return [{id:Math.random().toString(), text:input, checked:false, deleted:false}, ...prev];
     })
   }
 
@@ -59,6 +59,24 @@ function App() {
     }
   }
 
+  const undoListItem = (item) => {
+
+    setDeletedList((prevList) => {
+      return prevList.filter(element => element.id!==item.id)
+    })
+
+    if(item.checked){
+      setList((prevList)=> {
+        return prevList.filter(element => element.id!==item.id).concat({...item, deleted:false})
+      })
+    }else if(!item.checked){
+      setList((prevList)=> {
+        let newList = [{...item, deleted:false}, ...prevList.filter(element => element.id!==item.id)]
+        return newList;
+      })
+    }
+  }
+
   useEffect( () => {
     sessionStorage.setItem("list",JSON.stringify(list));
   }, [list]);
@@ -71,11 +89,12 @@ function App() {
     <Card className={classes.card}>
       <Title text="Grocery Bud"/>
       <InputForm fetchInput={addInput} />
-      <List items={list} check={checkListItem} delete={deleteListItem}/>
+      <List items={list} check={checkListItem} delete={deleteListItem} deletedList='false' />
       <Menu clearList={clearGroceryList} deletedList={displayDeletedItems}/>
-      {dispDeletedList && <List items={deletedList} />}
+      {!dispDeletedList && <List items={deletedList} undo={undoListItem}/>}
     </Card>
   );
 }
+
 
 export default App;

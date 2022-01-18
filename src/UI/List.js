@@ -12,10 +12,14 @@ const List = (props) => {
         props.delete(id);
     }
 
+    const undoHandler = (id) => {
+        props.undo(id);
+    }
+
     return (
         <ul className={classes.list}>
         {props.items.map((i) => (
-          <ListItem key={i.id} item={i} onCheck={checkHandler} onDelete={deleteHandler}/>
+          <ListItem key={i.id} item={i} onCheck={checkHandler} onDelete={deleteHandler} onUndo={undoHandler}/>
         ))}
       </ul>
     )
