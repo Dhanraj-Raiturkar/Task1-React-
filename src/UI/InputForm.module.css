@@ -1,0 +1,28 @@
+.input {
+    height: 1.7em;
+    display: block;
+    margin: 3% auto;
+    width:80%;
+    padding: 0px;
+}
+
+.input input{
+    border: 2px solid #508df7;
+    border-radius: 3.5px;
+    background-color: #dfe5f0;
+    width: 79%;
+    height: 80%;
+    margin: 0px;
+}
+
+.input button{
+    background-color: #9abfff;
+    border: none;
+    border-radius: 3.5px;
+    width: 19%;
+    height: 100%;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-family: monospace, sans-serif;
+    cursor: pointer;
+}

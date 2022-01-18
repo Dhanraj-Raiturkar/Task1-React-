@@ -1,0 +1,10 @@
+.listItem {
+    display: block;
+    margin: 3% auto;
+    width: 100%;
+
+    color: #382c2b;
+    font-size: 1.4em;
+    font-weight: 550;
+    letter-spacing: 2.5px;
+}

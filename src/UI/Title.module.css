@@ -1,0 +1,10 @@
+.text{
+    text-align: center;
+    color: #382c2b;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-shadow: 0 0 1px #000;
+    margin-top: 8%;
+    margin-bottom: 2%;
+}

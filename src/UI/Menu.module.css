@@ -1,0 +1,13 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3%;
+}
+
+.menu p{
+    margin: 0.7% auto;
+    font-size: 1.09em;
+    letter-spacing: 2.5px;
+    color: rgb(160, 26, 26);
+    cursor: pointer;
+}
